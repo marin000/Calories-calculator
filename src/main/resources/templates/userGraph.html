@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" type="text/css"
+ th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+
+<title>Calorie calculator</title>
+<script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js">
+</script>
+<script type = "text/javascript">
+   google.charts.load('current', {packages: ['corechart','line']});  
+</script>
+</head>
+<body>
+ <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+   <div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed"
+     data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+     aria-controls="navbar">
+     <span class="sr-only">Toggle navigation</span> <span
+      class="icon-bar"></span> <span class="icon-bar"></span> <span
+      class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="userHome" th:href="@{/user/home}">Calorie calculator</a>
+   </div>
+   <div id="navbar" class="collapse navbar-collapse">
+    <ul class="nav navbar-nav">
+     <li><a th:href="@{/user/food}">Food</a></li>
+     <li><a th:href="@{/user/graph}">Statistics</a></li>
+     <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+    </ul>
+   </div>
+  </div>
+ </nav>
+
+ <br><br>
+ <div style="display: flex">
+ <div id = "container" style = "width: 550px; height: 400px; margin: 0 auto;margin-top: 3%">
+</div>
+<script>
+   var number = "[[${avg}]]";
+   var avg=parseFloat(number);
+
+   function drawChart() {
+      // Define the chart to be drawn.
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Calories');
+      data.addColumn('number', "Calories needed");
+      data.addColumn('number', 'Per day');
+
+      var arr="[[${calories}]]";
+      arr=arr.slice(1,arr.length-1);
+      arr=arr.split(",");
+
+      var dates="[[${dates}]]";
+      dates=dates.slice(1, dates.length-1);
+      dates=dates.split(",");
+
+      for(i=0,j=0;i<arr.length;i++,j++){
+      data.addRows([
+         [dates[j], avg , parseFloat(arr[i])]
+      ]);
+      }
+         
+      // Set chart options
+      var options = {'title' : 'Calorie intake form last 7 days',
+         hAxis: {
+            title: 'Date'
+         },
+         vAxis: {
+            title: 'Calories'
+         },   
+         'width':550,
+         'height':400,
+         pointsVisible: true	  
+      };
+
+      // Instantiate and draw the chart.
+      var chart = new google.visualization.LineChart(document.getElementById('container'));
+      chart.draw(data, options);
+   }
+   google.charts.setOnLoadCallback(drawChart);
+</script>
+   <div style="width: 50%"><br><br>
+      <h3 style="text-align: center;font-weight: bold">All Statistics</h3>
+         <table class="table table-striped">
+               <thead>
+                   <tr>
+                        <th scope="col">Id</th>
+                       <th scope="col">Date</th>
+                       <th scope="col">Calories</th>
+                       <th scope="col">Proteins</th>
+                       <th scope="col">Carbohydrates</th>
+                       <th scope="col">Fats</th>
+                       <th scope="col"></th>
+                   </tr>
+               </thead>
+               <tbody>
+                   <tr th:each="var: ${calendar}">
+                        <td><span th:text="${var.id}"> id </span></td>
+                       <td><span th:text="${var.date}"> date </span></td>
+                       <td><span th:text="${var.calories}"> calories </span></td>
+                       <td><span th:text="${var.proteins}"> proteins </span></td>
+                       <td><span th:text="${var.carbohydrates}"> carbohydrates </span></td>
+                       <td><span th:text="${var.fats}"> fats </span></td>      
+                   </tr>
+               </tbody>
+           </table>
+   </div>
+</div>
+<script type="text/javascript"
+  th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+ <script type="text/javascript"
+  th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+</body>
+
+</html>

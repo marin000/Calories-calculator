@@ -1,0 +1,60 @@
+<div th:replace="fragments/headNav"></div>
+
+ <br>
+ <br>
+ <div class="container">
+  <h3>All products
+      <a href="/admin/addProduct" class="btn btn-success">Add product</a>
+  </h3>
+  <br>
+ </div>
+
+ <div class="container pt-5">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Weight</th>
+                        <th scope="col">Carbohydrates</th>
+                        <th scope="col">Calories</th>
+                        <th scope="col">Proteins</th>
+                        <th scope="col">Fats</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${products.empty}">
+                        <td colspan="5">No products registered</td>
+                    </tr>
+                    <tr th:each="product: ${products}">
+                        <th scope="row"><span th:text="${product.id}"> id </span></th>
+                        <td><span th:text="${product.name}"> name </span></td>
+                        <td>100g</td>
+                        <td><span th:text="${product.carbohydrates}"> carbohydrates </span></td>
+                        <td><span th:text="${product.calories}"> calories </span></td>
+                        <td><span th:text="${product.proteins}"> proteins </span></td>
+                        <td><span th:text="${product.fats}"> fats </span></td>
+
+                        <form th:action="@{/admin/allProducts/delete}" method="get">
+                        <td><button class="btn btn-warning btn-sm" type="submit" th:id="name" th:name="name" th:value="${product.name}">Delete</button></td>
+                        </form>
+                        <form th:action="@{/admin/allProducts/edit}" method="get">
+                        <td><button class="btn btn-info btn-sm" type="submit" th:id="name" th:name="name" th:value="${product.name}">Edit</button></td>
+                        </form>                   
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+
+
+
+
+ <script type="text/javascript"
+  th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+ <script type="text/javascript"
+  th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

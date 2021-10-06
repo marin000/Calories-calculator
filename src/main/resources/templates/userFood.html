@@ -1,0 +1,181 @@
+<div th:replace="fragments/userNav"></div>
+
+
+ <br>
+ <br>
+ <h3 style="text-align: center">Food diary</h3><br>
+ <div style="display: flex">
+ <div style="width: 33%">
+    <h4 style="text-align: center;font-weight: bold">Breakfast</h4><br><br>
+    <div style="display: flex">
+        <form th:action="@{/user/food/add}" method="post">
+    <label for="food">Search food: <input  class="form-control" list="food" name="food" type="text">
+    </label>
+    <datalist id="food" name="food">
+      <option th:each="product: ${listOfProducts}" data-value="${product.name}" th:text="${product.name} "></option>
+    </datalist> 
+    <label for="quantity" style="width: 15%">Quantity: <input  class="form-control" placeholder="gram" id="quantity" name="quantity" type="text">
+    </label>  
+        <button class="btn btn-success btn-sm"  type="submit" th:id="add" th:name="add" th:value="add1">Add</button>
+        </label>
+        </form>
+    </div>   
+<br>
+<div style="overflow-x: auto;width: 85%">
+    <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Calories</th>
+                    <th scope="col">Proteins</th>
+                    <th scope="col">Carbohydrates</th>
+                    <th scope="col">Fats</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="var: ${temp}" th:if="${var.meal == 'breakfast'}">
+                    <td><span th:text="${var.product}"> product </span></td>
+                    <td><span th:text="${var.quantity}"> quantity </span></td>
+                    <td><span th:text="${var.calories}"> calories </span></td>
+                    <td><span th:text="${var.proteins}"> proteins </span></td>
+                    <td><span th:text="${var.carbohydrates}"> carbohydrates </span></td>
+                    <td><span th:text="${var.fats}"> fats </span></td>
+
+                    <form th:action="@{/user/food/delete}" method="get">
+                    <td><button class="btn btn-warning btn-sm" type="submit" th:id="id" th:name="id" th:value="${var.id}">Delete</button></td>
+                    </form>               
+                </tr>
+            </tbody>
+        </table>
+ </div>
+ </div>
+ <div style="width: 33%">
+     <h4 style="text-align: center;font-weight: bold">Lunch</h4><br><br>
+     <div style="display: flex">
+            <form th:action="@{/user/food/add}" method="post">
+        <label for="food">Search food: <input  class="form-control" list="food" name="food" type="text">
+        </label>
+        <datalist id="food" name="food">
+          <option th:each="product: ${listOfProducts}" data-value="${product.name}" th:text="${product.name} "></option>
+        </datalist> 
+        <label for="quantity" style="width: 15%">Quantity: <input  class="form-control" placeholder="gram" id="quantity" name="quantity" type="text">
+        </label>  
+            <button class="btn btn-success btn-sm"  type="submit" th:id="add" th:name="add" th:value="add2">Add</button>
+            </label>
+            </form>
+        </div>   
+    <br>
+    <div style="overflow-x: auto;width: 85%">
+        <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Calories</th>
+                        <th scope="col">Proteins</th>
+                        <th scope="col">Carbohydrates</th>
+                        <th scope="col">Fats</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="var: ${temp}" th:if="${var.meal == 'lunch'}">
+                        <td><span th:text="${var.product}"> product </span></td>
+                        <td><span th:text="${var.quantity}"> quantity </span></td>
+                        <td><span th:text="${var.calories}"> calories </span></td>
+                        <td><span th:text="${var.proteins}"> proteins </span></td>
+                        <td><span th:text="${var.carbohydrates}"> carbohydrates </span></td>
+                        <td><span th:text="${var.fats}"> fats </span></td>
+    
+                        <form th:action="@{/user/food/delete}" method="get">
+                        <td><button class="btn btn-warning btn-sm" type="submit" th:id="id" th:name="id" th:value="${var.id}">Delete</button></td>
+                        </form>               
+                    </tr>
+                </tbody>
+            </table>
+     </div>
+ </div>
+
+ <div style="width: 33%">
+     <h4 style="text-align: center;font-weight: bold">Dinner</h4><br><br>
+     <div style="display: flex;width: 85%">
+            <form th:action="@{/user/food/add}" method="post">
+        <label for="food">Search food: <input  class="form-control" list="food" name="food" type="text">
+        </label>
+        <datalist id="food" name="food">
+          <option th:each="product: ${listOfProducts}" data-value="${product.name}" th:text="${product.name} "></option>
+        </datalist> 
+        <label for="quantity" style="width: 17%">Quantity: <input  class="form-control" placeholder="gram" id="quantity" name="quantity" type="text">
+        </label>  
+            <button class="btn btn-success btn-sm"  type="submit" th:id="add" th:name="add" th:value="add3">Add</button>
+            </label>
+            </form>
+        </div>   
+    <br>
+    <div style="overflow-x: auto">
+        <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Calories</th>
+                        <th scope="col">Proteins</th>
+                        <th scope="col">Carbohydrates</th>
+                        <th scope="col">Fats</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="var: ${temp}" th:if="${var.meal == 'dinner'}">
+                        <td><span th:text="${var.product}"> product </span></td>
+                        <td><span th:text="${var.quantity}"> quantity </span></td>
+                        <td><span th:text="${var.calories}"> calories </span></td>
+                        <td><span th:text="${var.proteins}"> proteins </span></td>
+                        <td><span th:text="${var.carbohydrates}"> carbohydrates </span></td>
+                        <td><span th:text="${var.fats}"> fats </span></td>
+    
+                        <form th:action="@{/user/food/delete}" method="get">
+                        <td><button class="btn btn-warning btn-sm" type="submit" th:id="id" th:name="id" th:value="${var.id}">Delete</button></td>
+                        </form>               
+                    </tr>
+                </tbody>
+            </table>
+     </div>
+ </div>
+ </div><br><br><br>
+
+ <div style="width: 40%;margin:0 auto;display: flex">
+     <br>
+     <h4 style="font-weight: bold;margin-right: 5%;margin-top: 9%">Total:</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Calories</th>
+                <th>Proteins</th>
+                <th>Carbohydrates</th>
+                <th>Fats</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th><span th:text="${calories}"> caloriesTotal  </span></th>
+                <th><span th:text="${proteins}"> proteinsTotal </span></th>
+                <th><span th:text="${carbohydrates}"> carbohydratesTotal </span></th>
+                <th><span th:text="${fats}"> fatsTotal </span></th>
+            </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/user/food/calendarAdd}" method="POST">
+        <button class="btn btn-success btn-sm" style="margin-left: 20%;margin-top: 80%" type="submit" th:id="cal" th:name="cal" >Save</button>
+    </form>      
+ </div>
+
+ <script type="text/javascript"
+  th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+ <script type="text/javascript"
+  th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
